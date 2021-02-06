@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv, find_dotenv
 import random
 import json
+from flask import Flask, render_template
 
 #getting access code from file
 load_dotenv(find_dotenv())
@@ -30,8 +31,8 @@ headers = {
 BASE_URL = 'https://api.spotify.com/v1/'
 
 #Artist ID
-#ed shareen, ariana granda, taylor swift
-artistIDs = ['6eUKZXaKkcviH0Ku9w2n3V', '66CXWjxzNUsdJxJ2JdwvnR', '06HL4z0CvFAxyc27GXpf02', '4YRxDV8wJFPHPTeXepOstw']
+#ed sheeran, ariana granda, taylor swift
+artistIDs = ['6eUKZXaKkcviH0Ku9w2n3V', '66CXWjxzNUsdJxJ2JdwvnR', '06HL4z0CvFAxyc27GXpf02']
 randNum = random.randint(0, len(artistIDs)-1)
 randArtist =  artistIDs[randNum]
 
@@ -52,15 +53,38 @@ json_formatted_str = json.dumps(data, indent=2)
 f = open("data.txt","w+")
 f.write(json_formatted_str)
 
+#find how many albams
+#randomy select an album
+
 #first index 0 is for the album
-songName = data["tracks"][0]["name"]
-songArtist = data["tracks"][0]["artists"][0]["name"]
-songImage = ""
-songPreviewURL = ""
+songName = data['tracks'][0]['name']
+songArtist = data['tracks'][0]['artists'][0]['name']
+songImageURL =data['tracks'][0]['album']['images'][1]['url']
+songPreviewURL = data['tracks'][0]['preview_url']
+
 
 print("song: ", songName)
 print("antist: ", songArtist)
-#print(SongImage)
-print(songPreviewURL)
+print("Image URL:", songImageURL)
+print("preview Url:",songPreviewURL)
 
 #print(data)
+
+
+app = Flask(__name__)
+
+@app.route('/')
+def homepage():
+    return render_template(
+        'index.html',
+        someName=songName,
+        songArtist=songArtist,
+        songImageURLS=songImageURL,
+        songPreviewURLS=songPreviewURL
+        )
+    
+app.run(
+    port = int(os.getenv('PORT', 8080)),
+    host = os.getenv("IP", '0.0.0.0'),
+    debug  = True #dont have keep closing and restarting server when we make change (restart the server)
+    )
