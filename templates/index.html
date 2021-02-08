@@ -9,9 +9,14 @@
         <h2>by {{ songArtist }}</h2>
         <img src="{{ songImageURLS }}"></img>
         <p>
-            <audio controls>
-                <source src="{{songPreviewURLS}}" type="audio/mpeg">
-            </audio>
+            {%if songPreviewURLS == None%}
+                <p>The preview is not avaible for this song</p>
+            {%else%}
+                <audio controls>
+                    <source src="{{songPreviewURLS}}" type="audio/mpeg">
+                </audio>
+            {%endif%}
+            
         </p>
     </body>
 </html>
