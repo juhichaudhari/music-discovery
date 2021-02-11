@@ -4,6 +4,9 @@ from dotenv import load_dotenv, find_dotenv
 import random
 import json
 from flask import Flask, render_template
+from genius import get_song_lyrics
+
+get_song_lyrics()
 
 app = Flask(__name__)
 # sets the cache control max age to this number of seconds.
@@ -11,6 +14,7 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.route('/')
 def homepage():
+    #spotify
     AUTH_URL = 'https://accounts.spotify.com/api/token'
     load_dotenv(find_dotenv())
     
@@ -67,12 +71,36 @@ def homepage():
     songArtist = data['tracks'][randA]['artists'][0]['name']
     songImageURL =data['tracks'][randA]['album']['images'][1]['url']
     songPreviewURL = data['tracks'][randA]['preview_url']
+    
+    
+    #Genius
+    geniusAccessToken= os.getenv('GENIUS_ACCESS_TOKEN')
+    base_url = 'https://api.genius.com'
+    headers = {'Authorization': 'Bearer ' + geniusAccessToken}
+    search_url = base_url + '/search'
+    data = {'q': songName + ' ' + songArtist}
+    response = requests.get(
+        search_url, 
+        data=data, 
+        headers=headers
+        )
+    dataFromGenius = response.json()
+    
+    '''
+    json_formatted_str = json.dumps(dataFromGenius, indent=2)
+    f = open("data.txt","w+")
+    f.write(json_formatted_str)
+    '''
+    
+    lyrics = dataFromGenius['response']['hits'][0]['result']['url']
+    
     return render_template(
         'index.html',
         songName=songName,
         songArtist=songArtist,
         songImageURLS=songImageURL,
-        songPreviewURLS=songPreviewURL
+        songPreviewURLS=songPreviewURL,
+        lyricsURL = lyrics
         )
     
 app.run(
