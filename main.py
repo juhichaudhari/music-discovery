@@ -4,9 +4,6 @@ from dotenv import load_dotenv, find_dotenv
 import random
 import json
 from flask import Flask, render_template
-from genius import get_song_lyrics
-
-get_song_lyrics()
 
 app = Flask(__name__)
 # sets the cache control max age to this number of seconds.
