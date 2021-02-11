@@ -3,3 +3,15 @@ body{
     color: white;
     text-align: center;
 }
+
+a {
+    color: grey;
+    text-decoration: none;
+}
+
+a:hover {
+    color: white;
+}
+
+
+
