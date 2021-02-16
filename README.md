@@ -16,13 +16,12 @@ This demo explains how to call the Spotify API and Genius API using the Python r
 
 #### Store and hide your API keys with a .env file and .gitignore file, respectively
 1. Create .env file in your main directory
-2. Add Spotify Client Id and Client Secret from https://developer.spotify.com/dashboard/applications with the lines:
+2. Add Spotify Client Id and Client Secret from https://developer.spotify.com/dashboard/applications and Genius Token with the lines:
     * `export SPOTIFY_ID='YOUR_ID'`
-    * `export SPOTIFT_SECRET='YOUR_SECRET'``
-   Add Genius Token GENIUS_ACCESS_TOKEN
+    * `export SPOTIFT_SECRET='YOUR_SECRET'`
     * `export GENIUS_ACCESS_TOKEN`
 3. Create .gitignore file in your main directory and add `.env` to the file
-    * this will avoid pusing the .env fine on remove reponsitory
+    * this will avoid pusing the .env file on remote git reponsitory
 
 
 ## Run Application
@@ -30,6 +29,7 @@ This demo explains how to call the Spotify API and Genius API using the Python r
 2. Preview web page in browser '/'
 
 ---
+## Notes
 ### Known Problem
 - There are no known problems with the Web Applcation.
 
