@@ -1,26 +1,34 @@
 # Project 1
-This demo explains how to call the Spotify API using the Python requests libary and parse its JSON data on cloud9 services on aws
+This demo explains how to call the Spotify API and Genius API using the Python requests libary and parse its JSON data on cloud9 services on aws
 
 ---
 
-## Project 1 Milestone 1
+## Requirements
+1. `pip install Flask`
+2. `pip install python-detenv`
+3. `pip install requests`
 
-### Requirements
-1. pip install Flask
-2. pip install python-detenv
-3. pip install requests
-
-### Setup
+## Setup
 
 #### Open-source libraries used
 - Spotify Web API (https://developer.spotify.com/documentation/web-api/quick-start/) - Simple HTTP requests with JSON parsing
+- Genius API (https://docs.genius.com/#/getting-started-h1)
 
 #### Store and hide your API keys with a .env file and .gitignore file, respectively
 1. Create .env file in your main directory
 2. Add Spotify Client Id and Client Secret from https://developer.spotify.com/dashboard/applications with the lines:
-    * export SPOTIFY_ID='YOUR_ID'
-    * export SPOTIFT_SECRET='YOUR_SECRET'
-  
+    * `export SPOTIFY_ID='YOUR_ID'`
+    * `export SPOTIFT_SECRET='YOUR_SECRET'``
+   Add Genius Token GENIUS_ACCESS_TOKEN
+    * `export GENIUS_ACCESS_TOKEN`
+3. Create .gitignore file in your main directory and add `.env` to the file
+    * this will avoid pusing the .env fine on remove reponsitory
+
+
+## Run Application
+1. Run command in terminal `python main.py`
+2. Preview web page in browser '/'
+
 ---
 ### Known Problem
 - There are no known problems with the Web Applcation.
