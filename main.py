@@ -11,6 +11,7 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.route('/')
 def homepage():
+    
     #spotify
     AUTH_URL = 'https://accounts.spotify.com/api/token'
     load_dotenv(find_dotenv())
@@ -52,22 +53,26 @@ def homepage():
         
     data = response.json()
     
-    '''
     json_formatted_str = json.dumps(data, indent=2)
     f = open("data.txt","w+")
-    f.write(json_formatted_str
-    '''
+    f.write(json_formatted_str)
     
     #find how many albams
     #randomy select an album
     #creates random number
-    lenTrack=len(data['tracks'])
-    randA=random.randint(0,lenTrack-1)
-    #first index 0 is for the album
-    songName = data['tracks'][randA]['name']
-    songArtist = data['tracks'][randA]['artists'][0]['name']
-    songImageURL =data['tracks'][randA]['album']['images'][1]['url']
-    songPreviewURL = data['tracks'][randA]['preview_url']
+    lenTrack = len(data['tracks'])
+    
+    if lenTrack == 0:
+        songName = "Thinking out Loud"
+        songArtist = "Ed Sheeran"
+        songImageURL  = "https://i.scdn.co/image/ab67616d00001e02d08209944468440145f01524"
+        songPreviewURL = "https://p.scdn.co/mp3-preview/cec1fc40a0220f20d3b91dd28d8e1141ad5e7e25?cid=0b1c2b0f0b974fff84db76a4244457f8"
+    else:
+        randA=random.randint(0,lenTrack-1)
+        songName = data['tracks'][randA]['name']
+        songArtist = data['tracks'][randA]['artists'][0]['name']
+        songImageURL =data['tracks'][randA]['album']['images'][1]['url']
+        songPreviewURL = data['tracks'][randA]['preview_url']
     
     
     #Genius
